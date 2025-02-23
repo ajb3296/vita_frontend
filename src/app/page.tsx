@@ -1,95 +1,51 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import { useState } from "react"
+import { useRouter } from 'next/navigation'
+import { Flex, Box, Text, Input } from "@chakra-ui/react"
+import { FiSearch } from "react-icons/fi"
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    const [searchQuery, setSearchQuery] = useState("");
+    const router = useRouter();
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    const Search = () => {
+        router.push("/search?query=" + encodeURI(searchQuery))
+    }
+
+    return (
+        <Flex justifyContent="center" alignItems="center" h="100vh" bg="gray.50">
+            <Box>
+                <Flex justifyContent="center">
+                    <Text color="black" fontSize="40px">나만의 영양제</Text>
+                </Flex>
+                <Flex w="700px"
+                    h="60px"
+                    bg="#F2F2F2"
+                    borderRadius="30px"
+                    alignItems="center"
+                    p="9px"
+                    pr="15px"
+                    mt="15px"
+                >
+                    <Input placeholder="영양제 검색"
+                        color="black"
+                        borderColor="#F2F2F2"
+                        outline="none"
+                        fontSize="20px"
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                Search();
+                            }
+                        }}
+                        _placeholder={{ color: "#AAAAAA" }}
+                    />
+                    <Box onClick={() => {Search()}} cursor="pointer">
+                        <FiSearch color="#AAAAAA" size="30px" />
+                    </Box>
+                </Flex>
+            </Box>
+        </Flex>
+    )
 }
