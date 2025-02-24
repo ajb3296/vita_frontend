@@ -1,4 +1,3 @@
-// app/search/page.tsx
 "use client"
 
 import { useState, useRef, useEffect } from "react"
@@ -72,6 +71,7 @@ export default function Search() {
         if (!inputQuery?.trim()) return;
         router.push(`/search?query=${encodeURIComponent(inputQuery)}`);
         setSearchQuery(inputQuery);
+        console.log(searchResults.length);
     };
     
     return (
@@ -127,7 +127,7 @@ export default function Search() {
                     <Spinner size="xl" />
                 </Flex>
             )}
-            {!!searchResults && !isLoading && (
+            {searchResults.length === 0 && !isLoading ? (
                 <Flex
                     position="fixed"
                     align="center"
@@ -139,7 +139,7 @@ export default function Search() {
                         검색 결과를 찾을 수 없습니다
                     </Text>
                 </Flex>
-            )}
+            ) : null}
 
             <Box mt="50px"
                 px="120px"

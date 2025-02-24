@@ -8,7 +8,7 @@ import { FiSearch } from "react-icons/fi"
 export default function Home() {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const Search = () => {
+    const SearchButton = () => {
         window.location.href = `/search?query=${encodeURIComponent(searchQuery)}`;
     }
 
@@ -35,12 +35,12 @@ export default function Home() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyPress={(e) => {
                             if (e.key === "Enter") {
-                                Search();
+                                SearchButton();
                             }
                         }}
                         _placeholder={{ color: "#AAAAAA" }}
                     />
-                    <Box onClick={() => {Search()}} cursor="pointer">
+                    <Box onClick={() => {SearchButton()}} cursor="pointer">
                         <FiSearch color="#AAAAAA" size="30px" />
                     </Box>
                 </Flex>
