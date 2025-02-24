@@ -26,7 +26,7 @@ interface ItemData {
 
 const fetchSearchData = async (query: string): Promise<ItemData[]> => {
     if (!query?.trim()) return [];
-    const response = await axios.get<ItemData[]>(`/api/search/?query=${encodeURIComponent(query)}`);
+    const response = await axios.get<ItemData[]>(`https://vita.ajb.kr/api/search/?query=${encodeURIComponent(query)}`);
     return response.data;
 };
 
@@ -117,13 +117,27 @@ export default function Search() {
             {isLoading && (
                 <Flex
                     position="fixed"
-                    top="50%"
-                    left="50%"
-                    transform="translate(-50%, -50%)"
                     align="center"
-                    justify="center"
+                    justifyContent="center"
+                    w="100vw"
+                    h="100vh"
+                    bg="black"
+                    opacity="0.5"
                 >
                     <Spinner size="xl" />
+                </Flex>
+            )}
+            {!!searchResults && !isLoading && (
+                <Flex
+                    position="fixed"
+                    align="center"
+                    justifyContent="center"
+                    w="100vw"
+                    h="100vh"
+                >
+                    <Text color="black">
+                        검색 결과를 찾을 수 없습니다
+                    </Text>
                 </Flex>
             )}
 

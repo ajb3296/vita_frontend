@@ -1,16 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { Flex, Box, Text, Input } from "@chakra-ui/react"
 import { FiSearch } from "react-icons/fi"
 
 export default function Home() {
     const [searchQuery, setSearchQuery] = useState("");
-    const router = useRouter();
 
     const Search = () => {
-        router.push("/search?query=" + encodeURI(searchQuery))
+        window.location.href = `/search?query=${encodeURIComponent(searchQuery)}`;
     }
 
     return (
